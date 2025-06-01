@@ -12,10 +12,11 @@ class PostForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = ['title', 'artist', 'album', 'rating', 'description']
+        fields = ['title', 'artist', 'album', 'album_cover_url', 'rating', 'description']
         labels = {
             'title': 'Título da Crítica',
             'artist': 'Artista',
             'album': 'Álbum',
+            'album_cover_url': 'URL da Capa do Álbum (opcional)',
             'description': 'Descrição',
         }
