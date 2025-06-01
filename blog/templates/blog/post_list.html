@@ -1,0 +1,22 @@
+
+{% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bloguito</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+</head>
+<body class="container">
+    <h1 class="my-4">Bloguito</h1>
+    <a class="btn btn-primary mb-3" href="{% url 'post_create' %}">Novo Post</a>
+    {% for post in posts %}
+        <div class="mb-4">
+            <h3><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></h3>
+            <small>{{ post.created_at }}</small>
+        </div>
+    {% empty %}
+        <p>Nenhum post encontrado.</p>
+    {% endfor %}
+</body>
+</html>
