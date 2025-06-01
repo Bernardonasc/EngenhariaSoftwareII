@@ -1,22 +1,60 @@
-
 {% load static %}
-{% load crispy_forms_tags %}
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
-    <title>Bloguito</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <meta charset="UTF-8">
+  <title>Bloguito – Avaliações de Álbuns</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Lora:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f7f7f7;
+      font-family: 'Inter', sans-serif;
+    }
+    h1, h2, h3 {
+      font-family: 'Lora', serif;
+    }
+    .navbar {
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .card-title a {
+      color: #222;
+      text-decoration: none;
+    }
+    .card-title a:hover {
+      text-decoration: underline;
+    }
+    footer {
+      margin-top: 4rem;
+      color: #888;
+    }
+  </style>
 </head>
-<body class="container">
-    <h1 class="my-4">Bloguito</h1>
-    <a class="btn btn-primary mb-3" href="{% url 'post_create' %}">Novo Post</a>
-    {% for post in posts %}
-        <div class="mb-4">
-            <h3><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></h3>
-            <small>{{ post.created_at }}</small>
-        </div>
-    {% empty %}
-        <p>Nenhum post encontrado.</p>
-    {% endfor %}
+<body>
+<nav class="navbar navbar-light bg-light mb-4">
+  <div class="container">
+    <a class="navbar-brand font-weight-bold" href="{% url 'post_list' %}">Bloguito</a>
+    <a class="btn btn-outline-primary" href="{% url 'post_create' %}">+ Nova Avaliação</a>
+  </div>
+</nav>
+
+<div class="container">
+  {% for post in posts %}
+    <div class="card mb-4 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title"><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></h5>
+        <p class="card-text"><strong>{{ post.artist }}</strong> – {{ post.album }}</p>
+        <p class="text-muted">Nota: {{ post.rating }} / 5 | {{ post.created_at|date:"d M Y" }}</p>
+        <p>{{ post.description|truncatewords:20 }}</p>
+      </div>
+    </div>
+  {% empty %}
+    <p class="text-muted">Nenhuma avaliação publicada ainda.</p>
+  {% endfor %}
+</div>
+
+<footer class="text-center">
+  <p>Bloguito © 2025 – Avaliações musicais semanais</p>
+</footer>
 </body>
 </html>
