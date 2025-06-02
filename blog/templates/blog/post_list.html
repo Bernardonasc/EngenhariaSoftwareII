@@ -14,11 +14,66 @@
     font-size: 2.5rem;
     font-weight: 700;
     font-family: 'Lora', serif;
+    margin-bottom: 0.5rem;
   }
 
   .hero p {
     font-size: 1.1rem;
     margin-top: 0.5rem;
+  }
+
+  .intro-section {
+    background-color: #f8f9fa;
+    padding: 3rem 0;
+  }
+
+  .intro-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .intro-text {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #333;
+    text-align: left;
+    flex-grow: 1;
+    margin-right: 30px;
+    font-family: 'Lora', serif;
+  }
+
+  .intro-spline-viewer {
+    width: 350px; 
+    height: 250px; 
+    flex-shrink: 0;
+    border-radius: 0.75rem;
+    overflow: hidden;
+  }
+
+
+
+  @media (max-width: 992px) {
+    .intro-content {
+      flex-direction: column;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .intro-text {
+      font-size: 1.6rem;
+      margin-right: 0;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .intro-spline-viewer {
+      width: 100%;
+      max-width: 300px;
+      height: 220px;
   }
 
   .card-link {
@@ -27,14 +82,14 @@
   }
 
   .card-album {
-    border: 5px solid white; /* Adiciona uma borda branca */
+    border: 5px solid white;
     border-radius: 1rem;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
     transition: transform 0.2s ease;
-    height: 100%; /* Garante que o card ocupe a altura total disponível na coluna */
-    display: flex; /* Usa flexbox para controlar o layout interno */
-    flex-direction: column; /* Organiza os itens em coluna */
-    overflow: hidden; /* Garante que as bordas arredondadas funcionem corretamente */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
   }
 
   .card-album:hover {
@@ -43,16 +98,16 @@
   }
 
   .card-album img {
-    border-top-left-radius: 0.7rem; /* Ajusta o raio para bordas arredondadas */
-    border-top-right-radius: 0.7rem; /* Ajusta o raio para bordas arredondadas */
-    height: 280px; /* Aumenta a altura da imagem */
+    border-top-left-radius: 0.7rem;
+    border-top-right-radius: 0.7rem;
+    height: 280px;
     object-fit: cover;
-    width: 100%; /* Garante que a imagem preencha a largura do card */
+    width: 100%;
   }
 
   .card-body {
-    flex-grow: 1; /* Permite que o corpo do card ocupe o espaço restante */
-    padding: 1.25rem; /* Ajusta o padding para o corpo do card */
+    flex-grow: 1;
+    padding: 1.25rem;
   }
 
   .rating {
@@ -98,6 +153,18 @@
 <div class="hero">
   <h1>TrackReview</h1>
   <p>Críticas musicais.</p>
+</div>
+
+<div class="intro-section">
+  <div class="intro-content">
+    <div class="intro-text">
+      <h2>Porque todo álbum merece ser ouvido… e comentado.</h2>
+    </div>
+    <div class="intro-spline-viewer">
+      <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.98/build/spline-viewer.js"></script>
+      <spline-viewer url="https://prod.spline.design/9yCJEhM2Qip3LlyK/scene.splinecode"></spline-viewer>
+    </div>
+  </div>
 </div>
 
 <div class="container my-5">
