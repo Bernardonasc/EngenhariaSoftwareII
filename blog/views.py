@@ -14,7 +14,7 @@ def post_list(request):
 
 
 def post_detail(request, pk):
-    post = Post.objects.get(pk=pk)
+    post = get_object_or_404(Post, pk=pk)
     return render(request, "blog/post_detail.html", {"post": post})
 
 

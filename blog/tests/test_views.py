@@ -27,6 +27,11 @@ class ViewsTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.post.description)
 
+    def test_post_detail_non_existent(self):
+        non_existent_pk = 9999
+        response = self.client.get(reverse("post_detail", args=[non_existent_pk]))
+        self.assertEqual(response.status_code, 404)
+
     def test_post_create_requires_login(self):
         response = self.client.get(reverse("post_create"))
         self.assertEqual(response.status_code, 302)  # Redireciona para login
@@ -48,13 +53,6 @@ class ViewsTest(TestCase):
         self.assertEqual(Post.objects.count(), 2)
         self.assertRedirects(response, reverse("post_list"))
 
-    def test_post_list_by_author(self):
-        response = self.client.get(
-            reverse("post_list_by_author", args=[self.user.username])
-        )
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Test Title")
-
     def test_register_view(self):
         response = self.client.post(
             reverse("register"),
@@ -66,3 +64,16 @@ class ViewsTest(TestCase):
         )
         self.assertEqual(User.objects.count(), 2)  # original + new
         self.assertRedirects(response, reverse("post_list"))
+
+    def test_post_list_by_author(self):
+        response = self.client.get(
+            reverse("post_list_by_author", args=[self.user.username])
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Test Title")
+
+    def test_post_list_by_author_non_existent(self):
+        response = self.client.get(
+            reverse("post_list_by_author", args=["nonExistentUser"])
+        )
+        self.assertEqual(response.status_code, 404)
