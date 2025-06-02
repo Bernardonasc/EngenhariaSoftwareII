@@ -1,6 +1,7 @@
 from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 from blog.models import Post
 
 
@@ -53,7 +54,7 @@ class ViewsTest(TestCase):
         self.assertEqual(Post.objects.count(), 2)
         self.assertRedirects(response, reverse("post_list"))
 
-    def test_register_view(self):
+    def test_register_post_success(self):
         response = self.client.post(
             reverse("register"),
             {
@@ -64,6 +65,36 @@ class ViewsTest(TestCase):
         )
         self.assertEqual(User.objects.count(), 2)  # original + new
         self.assertRedirects(response, reverse("post_list"))
+
+    def test_register_get_success(self):
+        response = self.client.get(reverse("register"))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "blog/register.html")
+        self.assertIsInstance(response.context["form"], UserCreationForm)
+
+    def test_register_invalid_passwords(self):
+        response = self.client.post(
+            reverse("register"),
+            {
+                "username": "failuser",
+                "password1": "password123",
+                "password2": "differentpass",
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(User.objects.count(), 1)
+
+    def test_register_existing_username(self):
+        response = self.client.post(
+            reverse("register"),
+            {
+                "username": "test",
+                "password1": "complexpass123",
+                "password2": "complexpass123",
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(User.objects.count(), 1)
 
     def test_post_list_by_author(self):
         response = self.client.get(
