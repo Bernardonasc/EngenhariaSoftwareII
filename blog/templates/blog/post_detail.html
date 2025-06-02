@@ -50,8 +50,15 @@
   .review-card h1 {
     font-family: 'Lora', serif;
     font-size: 2rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
     color: #0f172a;
+  }
+
+  .author-muted {
+    font-size: 1rem;
+    color: #4b5563;
+    margin-bottom: 0.5rem;
+    font-weight: 400;
   }
 
   .review-card small {
@@ -90,6 +97,9 @@
   {% endif %}
 
   <h1>{{ post.title }}</h1>
+  <div class="author-muted">
+    por {{ post.author.username }}
+  </div>
   <small>{{ post.created_at|date:"d M Y" }}</small>
 
   <p><strong>Artista:</strong> {{ post.artist }}</p>
@@ -106,7 +116,7 @@
   </div>
 
   <div class="review-description">
-    {{ post.description }}
+    {{ post.description|safe }}
   </div>
 </div>
 {% endblock %}

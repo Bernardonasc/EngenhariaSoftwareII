@@ -79,6 +79,11 @@
     font-size: 0.85rem;
     color: #999;
   }
+  .author-muted {
+    font-size: 0.89rem;
+    color: #4b5563;
+    margin-bottom: 0.25rem;
+  }
 </style>
 
 <div class="hero">
@@ -97,6 +102,9 @@
             {% endif %}
             <div class="card-body">
               <h5 class="card-title">{{ post.title }}</h5>
+              <div class="author-muted">
+                <span>Por {{ post.author.username }}</span>
+              </div>
               <p class="card-subtitle">
                 <span class="card-artist">{{ post.artist }}</span> – {{ post.album }}
               </p>
