@@ -3,3 +3,4 @@ Django>=4.2
 django-ckeditor
 django-crispy-forms
 crispy-bootstrap4
+pytest

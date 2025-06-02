@@ -13,6 +13,7 @@ source venv/bin/activate  # No Windows: venv\Scripts\activate
 pip install -r requirements.txt
 
 # 4. Aplique as migrações do banco de dados
+python manage.py makemigrations
 python manage.py migrate
 
 # 5. Execute o servidor local
