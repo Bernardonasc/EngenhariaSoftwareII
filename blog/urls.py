@@ -10,4 +10,5 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='blog/login.html', next_page='post_list'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(next_page='post_list'), name='logout'),
     path('register/', views.register, name='register'),
+    path('autor/<str:username>/', views.post_list_by_author, name='post_list_by_author'),
 ]

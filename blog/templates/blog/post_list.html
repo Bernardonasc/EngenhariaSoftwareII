@@ -154,6 +154,8 @@
   <p>Críticas musicais.</p>
 </div>
 
+
+
 <div class="intro-section">
   <div class="intro-content">
     <div class="intro-text">
@@ -165,6 +167,10 @@
     </div>
   </div>
 </div>
+
+{% if filter_author %}
+  <h4 class="text-center mb-5" style="padding-top: 50px;">Críticas de <span style="color:#1e3a8a;">{{ filter_author.username }}</span></h4>
+{% endif %}
 
 <div class="container my-5">
   <div class="row justify-content-center">
@@ -178,8 +184,12 @@
             <div class="card-body">
               <h5 class="card-title">{{ post.title }}</h5>
               <div class="author-muted">
-                <span>Por {{ post.author.username }}</span>
-              </div>
+                <span>
+                  Por <a href="{% url 'post_list_by_author' post.author.username %}" style="color:#1e40af; text-decoration:underline;">
+                    {{ post.author.username }}
+                  </a>
+                </span>
+              </div>              
               <p class="card-subtitle">
                 <span class="card-artist">{{ post.artist }}</span> – {{ post.album }}
               </p>
