@@ -4,3 +4,4 @@ django-ckeditor
 django-crispy-forms
 crispy-bootstrap4
 pytest
+pytest-django
