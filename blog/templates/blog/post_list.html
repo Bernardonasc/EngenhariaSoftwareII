@@ -14,11 +14,65 @@
     font-size: 2.5rem;
     font-weight: 700;
     font-family: 'Lora', serif;
+    margin-bottom: 0.5rem;
   }
 
   .hero p {
     font-size: 1.1rem;
     margin-top: 0.5rem;
+  }
+
+  .intro-section {
+    background-color: #f8f9fa;
+    padding: 3rem 0;
+  }
+
+  .intro-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .intro-text {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #333;
+    text-align: left;
+    flex-grow: 1;
+    margin-right: 30px;
+    font-family: 'Lora', serif;
+  }
+
+  .intro-spline-viewer {
+    width: 350px;
+    height: 250px;
+    flex-shrink: 0;
+    border-radius: 0.75rem;
+    overflow: hidden;
+  }
+
+  @media (max-width: 992px) {
+    .intro-content {
+      flex-direction: column;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .intro-text {
+      font-size: 1.6rem;
+      margin-right: 0;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .intro-spline-viewer {
+      width: 100%;
+      max-width: 300px;
+      height: 220px;
+    }
   }
 
   .card-link {
@@ -27,11 +81,14 @@
   }
 
   .card-album {
-    border: none;
+    border: 5px solid white;
     border-radius: 1rem;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
     transition: transform 0.2s ease;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
   }
 
   .card-album:hover {
@@ -40,10 +97,16 @@
   }
 
   .card-album img {
-    border-top-left-radius: 1rem;
-    border-top-right-radius: 1rem;
-    height: 240px;
+    border-top-left-radius: 0.7rem;
+    border-top-right-radius: 0.7rem;
+    height: 280px;
     object-fit: cover;
+    width: 100%;
+  }
+
+  .card-body {
+    flex-grow: 1;
+    padding: 1.25rem;
   }
 
   .rating {
@@ -79,12 +142,35 @@
     font-size: 0.85rem;
     color: #999;
   }
+  .author-muted {
+    font-size: 0.89rem;
+    color: #4b5563;
+    margin-bottom: 0.25rem;
+  }
 </style>
 
 <div class="hero">
   <h1>TrackReview</h1>
   <p>Críticas musicais.</p>
 </div>
+
+
+
+<div class="intro-section">
+  <div class="intro-content">
+    <div class="intro-text">
+      <h2>Porque todo álbum merece ser ouvido… e comentado.</h2>
+    </div>
+    <div class="intro-spline-viewer">
+      <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.98/build/spline-viewer.js"></script>
+      <spline-viewer url="https://prod.spline.design/9yCJEhM2Qip3LlyK/scene.splinecode"></spline-viewer>
+    </div>
+  </div>
+</div>
+
+{% if filter_author %}
+  <h4 class="text-center mb-5" style="padding-top: 50px;">Críticas de <span style="color:#1e3a8a;">{{ filter_author.username }}</span></h4>
+{% endif %}
 
 <div class="container my-5">
   <div class="row justify-content-center">
@@ -97,6 +183,13 @@
             {% endif %}
             <div class="card-body">
               <h5 class="card-title">{{ post.title }}</h5>
+              <div class="author-muted">
+                <span>
+                  Por <a href="{% url 'post_list_by_author' post.author.username %}" style="color:#1e40af; text-decoration:underline;">
+                    {{ post.author.username }}
+                  </a>
+                </span>
+              </div>              
               <p class="card-subtitle">
                 <span class="card-artist">{{ post.artist }}</span> – {{ post.album }}
               </p>
