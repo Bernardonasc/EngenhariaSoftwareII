@@ -2,7 +2,7 @@ import pytest
 from django.test import TestCase
 from blog.forms import PostForm
 from django import forms
-
+from blog.models import Category
 
 class FormsTest(TestCase):
     def test_post_form_contains_correct_fields(self):
@@ -14,6 +14,7 @@ class FormsTest(TestCase):
             "artist",
             "rating",
             "description",
+            "category"
         ]
         assert list(form.fields.keys()) == expected_fields
 
@@ -24,6 +25,7 @@ class FormsTest(TestCase):
         assert isinstance(form.fields["album_cover_url"].widget, forms.HiddenInput)
 
     def test_post_form_success(self):
+        category = Category.objects.create(name="Test", slug="test")
         data = {
             "title": "Test Title",
             "album": 1,
@@ -33,6 +35,7 @@ class FormsTest(TestCase):
             "description": "A test description",
             "created_at": "2023-10-01T12:00:00Z",
             "user": 1,
+            "category": category.id,
         }
         form = PostForm(data)
         assert form.is_valid()

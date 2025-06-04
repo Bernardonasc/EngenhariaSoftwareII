@@ -147,11 +147,38 @@
     color: #4b5563;
     margin-bottom: 0.25rem;
   }
+  .btn-outline-primary.active {
+  background-color: #1e40af;
+  color: white;
+  border-color: #1e40af;
+}
+
 </style>
 
 <div class="hero">
   <h1>TrackReview</h1>
   <p>Críticas musicais.</p>
+</div>
+
+<div class="container my-4">
+  <div class="d-flex flex-wrap justify-content-center" style="gap: 0.75rem;">
+    {% for category in categories %}
+      {% if filter_category == category %}
+        <!-- If selected, clicking returns to all -->
+        <a href="{% url 'post_list' %}"
+           class="btn btn-outline-primary active"
+           style="min-width: 120px; text-align: center;">
+          {{ category.name }}
+        </a>
+      {% else %}
+        <a href="{% url 'post_list_by_category' category.slug %}"
+           class="btn btn-outline-primary"
+           style="min-width: 120px; text-align: center;">
+          {{ category.name }}
+        </a>
+      {% endif %}
+    {% endfor %}
+  </div>
 </div>
 
 
@@ -167,6 +194,7 @@
     </div>
   </div>
 </div>
+
 
 {% if filter_author %}
   <h4 class="text-center mb-5" style="padding-top: 50px;">Críticas de <span style="color:#1e3a8a;">{{ filter_author.username }}</span></h4>
@@ -192,6 +220,8 @@
               </div>              
               <p class="card-subtitle">
                 <span class="card-artist">{{ post.artist }}</span> – {{ post.album }}
+              </p><p class="card-subtitle">
+                <span class="card-artist">Categoria: </span> {{ post.category.name }}
               </p>
               <p class="date-muted mb-2">{{ post.created_at|date:"d M Y" }}</p>
 
@@ -205,7 +235,7 @@
                 {% endfor %}
               </div>
 
-              <p class="post-description">{{ post.description|truncatechars:100 }}</p>
+              <p class="post-description">{{ post.description|truncatechars_html:100|safe }}</p>
             </div>
           </div>
         </a>

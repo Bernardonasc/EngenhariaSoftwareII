@@ -4,13 +4,15 @@ from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
-from .models import Post
+from .models import Post, Category
 from .forms import PostForm
 
 
 def post_list(request):
     posts = Post.objects.order_by("-created_at")
-    return render(request, "blog/post_list.html", {"posts": posts})
+    categories = Category.objects.all()
+    return render(request, "blog/post_list.html", {"posts": posts, "categories": categories})
+
 
 
 def post_detail(request, pk):
@@ -55,3 +57,13 @@ def post_list_by_author(request, username):
             "filter_author": author,  # Passa o autor para o template
         },
     )
+
+def post_list_by_category(request, slug):
+    category = get_object_or_404(Category, slug=slug)
+    posts = Post.objects.filter(category=category).order_by("-created_at")
+    categories = Category.objects.all()
+    return render(request, "blog/post_list.html", {
+        "posts": posts,
+        "filter_category": category,
+        "categories": categories  # ✅ pass this to keep menu
+    })

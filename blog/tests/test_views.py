@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from blog.models import Post
+from blog.models import Post, Category
 
 
 class ViewsTest(TestCase):
@@ -40,6 +40,7 @@ class ViewsTest(TestCase):
 
     def test_post_create_success(self):
         self.client.login(username="test", password="12345")
+        category = Category.objects.create(name="TestCategory", slug="testcategory")
         response = self.client.post(
             reverse("post_create"),
             {
@@ -49,6 +50,7 @@ class ViewsTest(TestCase):
                 "album_cover_url": "https://example.com/new.jpg",
                 "rating": 4,
                 "description": "New description",
+                "category": category.id
             },
         )
         self.assertEqual(Post.objects.count(), 2)

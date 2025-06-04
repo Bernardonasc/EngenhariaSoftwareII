@@ -145,10 +145,24 @@
         </div>
       </div>
 
+      <!-- Categoria -->
+      <div class="mt-4">
+        <!-- <label for="id_category" class="form-label" style="font-weight: 500;"></label> -->
+        {{ form.category|as_crispy_field }}
+      </div>
+
       <!-- Descrição -->
       <div class="mt-4">
         {{ form.description|as_crispy_field }}
       </div>
+
+      {% if post.category %}
+        <p class="card-subtitle">
+          <a href="{% url 'post_list_by_category' post.category.slug %}" style="color:#4b5563; text-decoration:underline;">
+            Categoria: {{ post.category.name }}
+          </a>
+        </p>
+      {% endif %}
 
       <div class="mt-4 d-flex justify-content-between">
         <button type="submit" class="btn btn-primary">Publicar</button>

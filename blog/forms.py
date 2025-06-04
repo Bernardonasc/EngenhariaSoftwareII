@@ -14,6 +14,7 @@ class PostForm(forms.ModelForm):
             "artist",
             "rating",
             "description",
+            "category"
         ]
         widgets = {
             "album": forms.HiddenInput(),

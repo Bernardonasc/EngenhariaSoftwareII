@@ -11,4 +11,5 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(next_page='post_list'), name='logout'),
     path('register/', views.register, name='register'),
     path('autor/<str:username>/', views.post_list_by_author, name='post_list_by_author'),
+    path('categoria/<slug:slug>/', views.post_list_by_category, name='post_list_by_category'),
 ]
