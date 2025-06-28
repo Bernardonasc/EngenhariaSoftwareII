@@ -1,7 +1,7 @@
 # Track Review - EngSoft 2
 
 ## Integrantes do grupo
-Bernardo Nunes
+Bernardo do Nascimento Nunes
 
 César Morais
 
