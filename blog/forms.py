@@ -3,7 +3,7 @@ from .models import Post
 
 
 class PostForm(forms.ModelForm):
-    album_cover_url = forms.URLField(widget=forms.HiddenInput(), assume_scheme="http")
+    album_cover_url = forms.URLField(widget=forms.HiddenInput())
 
     class Meta:
         model = Post
@@ -14,7 +14,7 @@ class PostForm(forms.ModelForm):
             "artist",
             "rating",
             "description",
-            "category"
+            "category",
         ]
         widgets = {
             "album": forms.HiddenInput(),
